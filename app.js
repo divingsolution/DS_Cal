@@ -215,7 +215,8 @@ function renderCalendar(year,month){
         (date.getMonth() !== month ? " out" : "") +
         (normalize(date).getTime() === today.getTime() ? " today" : "");
 
-      day.innerHTML = `<span class="day-number">${date.getDate()}</span>`;
+      day.innerHTML = `<button class="day-hit" type="button" aria-label="${date.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일 일정 보기"><span class="day-number">${date.getDate()}</span></button>`;
+      day.querySelector(".day-hit").onclick = ()=>openDay(date);
       row.appendChild(day);
     });
 
@@ -330,6 +331,54 @@ function render(){
   renderMini(year,month);
 }
 
+
+function eventsForDate(date){
+  const target = normalize(date);
+  return visibleEvents()
+    .filter(event=>{
+      const {start,end} = range(event);
+      return target >= start && target <= end;
+    })
+    .sort((a,b)=>dateOnly(a.start_date)-dateOnly(b.start_date));
+}
+
+function openDay(date){
+  const sheet = $("#daySheet");
+  const title = $("#daySheetTitle");
+  const items = $("#daySheetItems");
+  const dayEvents = eventsForDate(date);
+
+  title.textContent = `${date.getMonth()+1}월 ${date.getDate()}일 일정`;
+  items.innerHTML = "";
+
+  if(!dayEvents.length){
+    items.innerHTML = '<div class="day-sheet-empty">등록된 일정이 없습니다.</div>';
+  }else{
+    dayEvents.forEach(event=>{
+      const button = document.createElement("button");
+      button.className = `day-sheet-item ${categoryClass[event.category] || "domestic"}`;
+      button.innerHTML = `
+        <span class="day-sheet-status">${statusLabel(event)}</span>
+        <strong>${event.title}</strong>
+        <small>${event.location || "장소 추후 안내"} · ${event.category}</small>
+      `;
+      button.onclick = ()=>{ closeDaySheet(); openEvent(event); };
+      items.appendChild(button);
+    });
+  }
+
+  sheet.classList.add("open");
+  sheet.setAttribute("aria-hidden","false");
+  document.body.classList.add("sheet-open");
+}
+
+function closeDaySheet(){
+  const sheet = $("#daySheet");
+  sheet.classList.remove("open");
+  sheet.setAttribute("aria-hidden","true");
+  document.body.classList.remove("sheet-open");
+}
+
 function openEvent(event){
   $("#mCategory").textContent = event.category;
   $("#mTitle").textContent = event.title;
@@ -382,6 +431,8 @@ document.querySelectorAll(".filter-button").forEach(button=>{
 });
 
 $("#close").onclick = ()=>$("#modal").classList.remove("open");
+$("#daySheetClose").onclick = closeDaySheet;
+$("#daySheetBackdrop").onclick = closeDaySheet;
 
 $("#modal").onclick = event=>{
   if(event.target.id === "modal"){
@@ -392,6 +443,7 @@ $("#modal").onclick = event=>{
 document.addEventListener("keydown",event=>{
   if(event.key === "Escape"){
     $("#modal").classList.remove("open");
+    closeDaySheet();
   }
 });
 

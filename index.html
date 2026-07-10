@@ -162,6 +162,22 @@
     </div>
   </div>
 
+
+  <div class="day-sheet" id="daySheet" aria-hidden="true">
+    <div class="day-sheet-backdrop" id="daySheetBackdrop"></div>
+    <section class="day-sheet-panel" role="dialog" aria-modal="true" aria-labelledby="daySheetTitle">
+      <div class="day-sheet-handle"></div>
+      <div class="day-sheet-head">
+        <div>
+          <p>SELECTED DATE</p>
+          <h2 id="daySheetTitle"></h2>
+        </div>
+        <button id="daySheetClose" aria-label="닫기">×</button>
+      </div>
+      <div id="daySheetItems" class="day-sheet-items"></div>
+    </section>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
   <script src="app.js"></script>
