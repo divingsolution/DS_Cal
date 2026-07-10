@@ -726,3 +726,204 @@ a{color:inherit;text-decoration:none}
     padding:16px;
   }
 }
+
+/* ===== 완성 섹션 ===== */
+.info-section,
+.benefit-section,
+.faq-section{
+  margin-top:32px;
+  padding:34px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:#fff;
+  box-shadow:var(--shadow-soft);
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.info-card{
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:#fff;
+}
+
+.info-card.included{background:linear-gradient(135deg,#eefafa,#fff)}
+.info-card.excluded{background:linear-gradient(135deg,#fff9f1,#fff)}
+
+.info-card h3{
+  margin:0 0 16px;
+  font-size:1.15rem;
+  font-weight:800;
+}
+
+.check-list,
+.plain-list{
+  margin:0;
+  padding:0;
+  list-style:none;
+  display:grid;
+  gap:10px;
+}
+
+.check-list li,
+.plain-list li{
+  position:relative;
+  padding:13px 15px 13px 42px;
+  border:1px solid #e2ecef;
+  border-radius:14px;
+  background:#f8fbfc;
+  color:#4f6976;
+  font-size:.84rem;
+  font-weight:650;
+}
+
+.check-list li::before{
+  content:"✓";
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  width:18px;
+  height:18px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:#fff;
+  background:var(--teal);
+  font-size:.68rem;
+  font-weight:800;
+}
+
+.plain-list li::before{
+  content:"–";
+  position:absolute;
+  left:17px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#da8a2b;
+  font-weight:800;
+}
+
+.benefit-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+
+.benefit-card{
+  min-height:190px;
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:linear-gradient(180deg,#fff,#f8fbfc);
+  box-shadow:0 8px 22px rgba(26,66,84,.06);
+}
+
+.benefit-card span{
+  display:inline-grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  color:#0f7e87;
+  background:#e7f8f9;
+  font-size:.72rem;
+  font-weight:800;
+}
+
+.benefit-card h3{
+  margin:18px 0 8px;
+  font-size:1.02rem;
+  font-weight:800;
+}
+
+.benefit-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:.8rem;
+  line-height:1.65;
+}
+
+.faq-list{
+  display:grid;
+  gap:10px;
+}
+
+.faq-list details{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  overflow:hidden;
+}
+
+.faq-list summary{
+  cursor:pointer;
+  padding:17px 19px;
+  font-size:.9rem;
+  font-weight:750;
+}
+
+.faq-list details p{
+  margin:0;
+  padding:0 19px 18px;
+  color:var(--muted);
+  font-size:.82rem;
+  line-height:1.7;
+}
+
+.final-cta{
+  margin-top:32px;
+  padding:34px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  border-radius:28px;
+  color:#fff;
+  background:linear-gradient(135deg,#123b4c,#0f7f89);
+  box-shadow:var(--shadow);
+}
+
+.final-cta h2{
+  margin:5px 0 10px;
+  font-size:clamp(2rem,4vw,3.5rem);
+  line-height:1.08;
+  letter-spacing:-.05em;
+}
+
+.final-cta p:not(.section-eyebrow){
+  margin:0;
+  color:rgba(255,255,255,.78);
+}
+
+.final-cta .section-eyebrow{color:#73e3e8}
+.final-actions{display:flex;gap:10px;flex-wrap:wrap}
+.ie-footer{padding:26px 0 0;text-align:center;color:#83959f;font-size:.76rem}
+
+@media(max-width:1050px){
+  .benefit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:850px){
+  .info-grid{grid-template-columns:1fr}
+  .final-cta{align-items:flex-start;flex-direction:column}
+}
+
+@media(max-width:680px){
+  .info-section,
+  .benefit-section,
+  .faq-section{
+    margin-top:20px;
+    padding:22px 18px;
+    border-radius:22px;
+  }
+
+  .benefit-grid{grid-template-columns:1fr}
+  .final-cta{margin-top:20px;padding:24px 20px;border-radius:22px}
+  .final-actions{width:100%;display:grid;grid-template-columns:1fr}
+}

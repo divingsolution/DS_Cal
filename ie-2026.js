@@ -46,7 +46,7 @@
 
       const daysLeft = Math.ceil((startDate - today) / DAY_MS);
       card.classList.add("upcoming");
-      status.textContent = daysLeft === 0 ? "오늘 시작" : `모집중 · D-${daysLeft}`;
+      status.textContent = `모집중 · D-${daysLeft}`;
       action.textContent = "상담하기";
     });
   }
