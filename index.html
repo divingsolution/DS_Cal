@@ -3,8 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f7f8">
+  <meta name="theme-color" content="#f3f7f8">
   <title>다이빙솔루션 일정표</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,20 +21,29 @@
         </span>
       </a>
 
-      <div class="contact-actions">
-        <a
-          class="contact-button kakao"
-          href="https://pf.kakao.com/_sxaxmfK"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="contact-icon">●</span>
-          카카오톡 1:1 상담
-        </a>
-        <a class="contact-button phone" href="tel:01096245805">
-          <span class="contact-icon">☎</span>
-          전화 문의
-        </a>
+      <div class="header-right">
+        <div class="service-hours">
+          <span>전화상담</span>
+          <strong>월–금 10:00–17:00</strong>
+          <small>주말엔 바다갑니다</small>
+        </div>
+
+        <div class="contact-actions">
+          <a
+            class="contact-button kakao"
+            href="https://pf.kakao.com/_sxaxmfK"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="contact-icon">●</span>
+            카카오톡 1:1 상담
+          </a>
+
+          <a class="contact-button phone" href="tel:01096245805">
+            <span class="contact-icon">☎</span>
+            전화 문의
+          </a>
+        </div>
       </div>
     </header>
 
@@ -45,6 +57,18 @@
           일정은 수시로 업데이트됩니다.
         </p>
       </div>
+    </section>
+
+    <section class="highlight-section">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">UPCOMING</p>
+          <h2>이번 주 출발</h2>
+        </div>
+        <p>가장 가까운 일정부터 빠르게 확인하세요.</p>
+      </div>
+
+      <div id="upcomingCards" class="upcoming-grid"></div>
     </section>
 
     <section class="schedule-toolbar">
@@ -70,6 +94,7 @@
           <div>일</div><div>월</div><div>화</div><div>수</div>
           <div>목</div><div>금</div><div>토</div>
         </div>
+
         <div id="calendarBody" class="calendar-body"></div>
         <div id="mobileList" class="mobile-list"></div>
       </div>
@@ -81,10 +106,12 @@
             <strong id="miniMonthTitle"></strong>
             <button id="miniNext" aria-label="다음 달">→</button>
           </div>
+
           <div class="mini-week">
             <span>일</span><span>월</span><span>화</span><span>수</span>
             <span>목</span><span>금</span><span>토</span>
           </div>
+
           <div id="miniCalendar" class="mini-grid"></div>
         </section>
 
@@ -103,7 +130,8 @@
           <ul>
             <li>일정을 클릭하면 상세 정보를 확인할 수 있습니다.</li>
             <li>카카오톡 1:1 상담으로 일정 및 교육 문의가 가능합니다.</li>
-            <li>전화 문의는 운영시간에 연결됩니다.</li>
+            <li><strong>전화상담: 월–금 오전 10시부터 오후 5시까지</strong></li>
+            <li><strong>주말엔 바다갑니다.</strong></li>
           </ul>
         </section>
       </aside>
@@ -117,10 +145,19 @@
       <button class="modal-close" id="close" aria-label="닫기">×</button>
       <p class="modal-category" id="mCategory"></p>
       <h2 id="mTitle"></h2>
+
       <div class="modal-meta" id="mInfo"></div>
+
       <div class="modal-actions">
         <a class="primary-action" id="mLink" target="_blank" rel="noopener">상세 페이지 보기</a>
-        <a class="secondary-action" href="https://pf.kakao.com/_sxaxmfK" target="_blank" rel="noopener">카카오톡 문의</a>
+        <a
+          class="secondary-action"
+          href="https://pf.kakao.com/_sxaxmfK"
+          target="_blank"
+          rel="noopener"
+        >
+          카카오톡 문의
+        </a>
       </div>
     </div>
   </div>

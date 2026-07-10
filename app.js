@@ -19,117 +19,231 @@ function dateOnly(value){
   const [y,m,d] = value.split("-").map(Number);
   return new Date(y,m-1,d);
 }
+
 function normalize(date){
   return new Date(date.getFullYear(),date.getMonth(),date.getDate());
 }
+
 function range(event){
   const start = dateOnly(event.start_date);
   const end = event.end_date ? dateOnly(event.end_date) : start;
   return {start,end};
 }
+
 function dateText(event){
-  const f = new Intl.DateTimeFormat("ko-KR",{year:"numeric",month:"long",day:"numeric",weekday:"short"});
+  const f = new Intl.DateTimeFormat("ko-KR",{
+    year:"numeric",
+    month:"long",
+    day:"numeric",
+    weekday:"short"
+  });
+
   const {start,end} = range(event);
+
   return start.getTime() === end.getTime()
     ? `${f.format(start)} · 당일`
     : `${f.format(start)} ~ ${f.format(end)}`;
 }
-function visibleEvents(){
-  return filter === "전체" ? events : events.filter(e => e.category === filter);
+
+function shortDateText(event){
+  const {start,end} = range(event);
+  const formatter = new Intl.DateTimeFormat("ko-KR",{
+    month:"long",
+    day:"numeric",
+    weekday:"short"
+  });
+
+  return start.getTime() === end.getTime()
+    ? `${formatter.format(start)} · 당일`
+    : `${formatter.format(start)} ~ ${formatter.format(end)}`;
 }
+
+function visibleEvents(){
+  return filter === "전체"
+    ? events
+    : events.filter(event => event.category === filter);
+}
+
 function statusClass(event){
   const today = normalize(new Date());
   const {end} = range(event);
+
   if(end < today) return "ended";
   if(event.status === "마감임박") return "urgent";
   if(event.status === "마감") return "closed";
   return "open";
 }
+
 function statusLabel(event){
   const cls = statusClass(event);
   if(cls === "ended") return "종료";
   return event.status || "모집중";
 }
+
 async function load(){
-  const {data,error} = await sb.from("events").select("*").order("start_date");
+  const {data,error} = await sb
+    .from("events")
+    .select("*")
+    .order("start_date");
+
   if(error){
-    alert("일정을 불러오지 못했습니다: "+error.message);
+    alert("일정을 불러오지 못했습니다: " + error.message);
     return;
   }
+
   events = data || [];
   render();
+  renderUpcoming();
 }
+
 function calendarStart(year,month){
   const first = new Date(year,month,1);
   return new Date(year,month,1-first.getDay());
 }
+
 function weekDates(start,weekIndex){
   return Array.from({length:7},(_,i)=>{
-    const d = new Date(start);
-    d.setDate(start.getDate()+weekIndex*7+i);
-    return d;
+    const date = new Date(start);
+    date.setDate(start.getDate()+weekIndex*7+i);
+    return date;
   });
 }
+
 function buildSegments(days,items){
-  const ws = normalize(days[0]);
-  const we = normalize(days[6]);
-  const segments = items.map(event=>{
-    const {start,end} = range(event);
-    if(end < ws || start > we) return null;
-    const a = start < ws ? ws : start;
-    const b = end > we ? we : end;
-    return {
-      event,
-      startCol:Math.round((a-ws)/86400000)+1,
-      endCol:Math.round((b-ws)/86400000)+2
-    };
-  }).filter(Boolean).sort((a,b)=>
-    a.startCol-b.startCol || (b.endCol-b.startCol)-(a.endCol-a.startCol)
-  );
+  const weekStart = normalize(days[0]);
+  const weekEnd = normalize(days[6]);
+
+  const segments = items
+    .map(event=>{
+      const {start,end} = range(event);
+
+      if(end < weekStart || start > weekEnd) return null;
+
+      const segmentStart = start < weekStart ? weekStart : start;
+      const segmentEnd = end > weekEnd ? weekEnd : end;
+
+      return {
+        event,
+        startCol:Math.round((segmentStart-weekStart)/86400000)+1,
+        endCol:Math.round((segmentEnd-weekStart)/86400000)+2
+      };
+    })
+    .filter(Boolean)
+    .sort((a,b)=>
+      a.startCol-b.startCol ||
+      (b.endCol-b.startCol)-(a.endCol-a.startCol)
+    );
 
   const tracks = [];
-  segments.forEach(seg=>{
-    let track = tracks.findIndex(list=>!list.some(x=>seg.startCol < x.endCol && seg.endCol > x.startCol));
-    if(track === -1){track = tracks.length;tracks.push([])}
-    seg.track = track+1;
-    tracks[track].push(seg);
+
+  segments.forEach(segment=>{
+    let track = tracks.findIndex(list=>
+      !list.some(existing=>
+        segment.startCol < existing.endCol &&
+        segment.endCol > existing.startCol
+      )
+    );
+
+    if(track === -1){
+      track = tracks.length;
+      tracks.push([]);
+    }
+
+    segment.track = track+1;
+    tracks[track].push(segment);
   });
+
   return segments;
 }
+
+function renderUpcoming(){
+  const container = $("#upcomingCards");
+  container.innerHTML = "";
+
+  const today = normalize(new Date());
+  const nextWeek = new Date(today);
+  nextWeek.setDate(today.getDate()+7);
+
+  const upcoming = events
+    .filter(event=>{
+      const {start,end} = range(event);
+      return end >= today && start <= nextWeek;
+    })
+    .sort((a,b)=>dateOnly(a.start_date)-dateOnly(b.start_date))
+    .slice(0,3);
+
+  if(!upcoming.length){
+    container.innerHTML = `
+      <div class="upcoming-empty">
+        이번 주에 등록된 일정이 없습니다. 아래 전체 캘린더에서 다음 일정을 확인해 주세요.
+      </div>
+    `;
+    return;
+  }
+
+  upcoming.forEach(event=>{
+    const button = document.createElement("button");
+    button.className = "upcoming-card";
+    button.innerHTML = `
+      <span class="date">${shortDateText(event)}</span>
+      <h3>${event.title}</h3>
+      <p>${event.location || "장소 추후 안내"} · ${event.category}</p>
+      <span class="badge">${statusLabel(event)}</span>
+    `;
+    button.onclick = ()=>openEvent(event);
+    container.appendChild(button);
+  });
+}
+
 function renderCalendar(year,month){
   const body = $("#calendarBody");
   body.innerHTML = "";
+
   const start = calendarStart(year,month);
   const today = normalize(new Date());
   const items = visibleEvents();
 
-  for(let w=0;w<6;w++){
-    const days = weekDates(start,w);
+  for(let week=0;week<6;week++){
+    const days = weekDates(start,week);
     const row = document.createElement("div");
     row.className = "calendar-week";
 
-    days.forEach(d=>{
+    days.forEach(date=>{
       const day = document.createElement("div");
-      day.className = "calendar-day" +
-        (d.getMonth() !== month ? " out" : "") +
-        (normalize(d).getTime() === today.getTime() ? " today" : "");
-      day.innerHTML = `<span class="day-number">${d.getDate()}</span>`;
+      day.className =
+        "calendar-day" +
+        (date.getMonth() !== month ? " out" : "") +
+        (normalize(date).getTime() === today.getTime() ? " today" : "");
+
+      day.innerHTML = `<span class="day-number">${date.getDate()}</span>`;
       row.appendChild(day);
     });
 
     const layer = document.createElement("div");
     layer.className = "event-layer";
 
-    buildSegments(days,items).slice(0,12).forEach(seg=>{
-      const e = seg.event;
+    buildSegments(days,items).slice(0,12).forEach(segment=>{
+      const event = segment.event;
       const button = document.createElement("button");
-      const sClass = statusClass(e);
-      button.className = `event-bar ${categoryClass[e.category] || "domestic"} ${sClass === "ended" ? "ended" : ""}`;
-      button.style.gridColumn = `${seg.startCol}/${seg.endCol}`;
-      button.style.gridRow = `${seg.track}`;
-      button.innerHTML = `${e.title}<span class="event-status status-${sClass}">${statusLabel(e)}</span>`;
-      button.title = `${e.title} · ${statusLabel(e)}`;
-      button.onclick = ()=>openEvent(e);
+      const currentStatusClass = statusClass(event);
+
+      button.className =
+        `event-bar ${categoryClass[event.category] || "domestic"} ` +
+        `${currentStatusClass === "ended" ? "ended" : ""}`;
+
+      button.style.gridColumn = `${segment.startCol}/${segment.endCol}`;
+      button.style.gridRow = `${segment.track}`;
+
+      button.innerHTML = `
+        ${event.title}
+        <span class="event-status status-${currentStatusClass}">
+          ${statusLabel(event)}
+        </span>
+      `;
+
+      button.title = `${event.title} · ${statusLabel(event)}`;
+      button.onclick = ()=>openEvent(event);
+
       layer.appendChild(button);
     });
 
@@ -137,103 +251,148 @@ function renderCalendar(year,month){
     body.appendChild(row);
   }
 }
+
 function renderMobile(year,month){
   const list = $("#mobileList");
   list.innerHTML = "";
-  const ms = new Date(year,month,1);
-  const me = new Date(year,month+1,0);
-  const items = visibleEvents().filter(e=>{
-    const {start,end} = range(e);
-    return end >= ms && start <= me;
-  }).sort((a,b)=>dateOnly(a.start_date)-dateOnly(b.start_date));
+
+  const monthStart = new Date(year,month,1);
+  const monthEnd = new Date(year,month+1,0);
+
+  const items = visibleEvents()
+    .filter(event=>{
+      const {start,end} = range(event);
+      return end >= monthStart && start <= monthEnd;
+    })
+    .sort((a,b)=>dateOnly(a.start_date)-dateOnly(b.start_date));
 
   if(!items.length){
     list.innerHTML = '<div class="mobile-item">등록된 일정이 없습니다.</div>';
     return;
   }
-  items.forEach(e=>{
+
+  items.forEach(event=>{
     const button = document.createElement("button");
     button.className = "mobile-item";
-    button.innerHTML = `<small>${dateText(e)}</small><h3>${e.title}</h3><small>${e.location || ""} · ${e.category} · ${statusLabel(e)}</small>`;
-    button.onclick = ()=>openEvent(e);
+
+    button.innerHTML = `
+      <small>${dateText(event)}</small>
+      <h3>${event.title}</h3>
+      <small>
+        ${event.location || ""} · ${event.category} · ${statusLabel(event)}
+      </small>
+    `;
+
+    button.onclick = ()=>openEvent(event);
     list.appendChild(button);
   });
 }
+
 function renderMini(year,month){
   $("#miniMonthTitle").textContent = `${year}년 ${month+1}월`;
+
   const grid = $("#miniCalendar");
   grid.innerHTML = "";
+
   const start = calendarStart(year,month);
   const today = normalize(new Date());
 
-  for(let i=0;i<42;i++){
-    const d = new Date(start);
-    d.setDate(start.getDate()+i);
-    const hasEvent = events.some(e=>{
-      const {start:s,end} = range(e);
-      return normalize(d) >= s && normalize(d) <= end;
+  for(let index=0;index<42;index++){
+    const date = new Date(start);
+    date.setDate(start.getDate()+index);
+
+    const hasEvent = events.some(event=>{
+      const {start:eventStart,end:eventEnd} = range(event);
+      return normalize(date) >= eventStart && normalize(date) <= eventEnd;
     });
-    const el = document.createElement("span");
-    el.className = "mini-day" +
-      (d.getMonth() !== month ? " out" : "") +
-      (normalize(d).getTime() === today.getTime() ? " selected" : "") +
+
+    const element = document.createElement("span");
+
+    element.className =
+      "mini-day" +
+      (date.getMonth() !== month ? " out" : "") +
+      (normalize(date).getTime() === today.getTime() ? " selected" : "") +
       (hasEvent ? " has-event" : "");
-    el.textContent = d.getDate();
-    grid.appendChild(el);
+
+    element.textContent = date.getDate();
+    grid.appendChild(element);
   }
 }
+
 function render(){
-  const y = cursor.getFullYear();
-  const m = cursor.getMonth();
-  $("#monthTitle").textContent = `${y}년 ${m+1}월`;
-  renderCalendar(y,m);
-  renderMobile(y,m);
-  renderMini(y,m);
+  const year = cursor.getFullYear();
+  const month = cursor.getMonth();
+
+  $("#monthTitle").textContent = `${year}년 ${month+1}월`;
+
+  renderCalendar(year,month);
+  renderMobile(year,month);
+  renderMini(year,month);
 }
+
 function openEvent(event){
   $("#mCategory").textContent = event.category;
   $("#mTitle").textContent = event.title;
+
   $("#mInfo").innerHTML = `
     <div><strong>일정</strong>　${dateText(event)}</div>
     <div><strong>장소</strong>　${event.location || "추후 안내"}</div>
     <div><strong>상태</strong>　${statusLabel(event)}</div>
     <div><strong>안내</strong>　${event.description || ""}</div>
   `;
+
   const link = $("#mLink");
+
   if(event.detail_url){
     link.href = event.detail_url;
     link.classList.remove("hidden");
   }else{
     link.classList.add("hidden");
   }
+
   $("#modal").classList.add("open");
 }
+
 function moveMonth(delta){
   cursor.setMonth(cursor.getMonth()+delta);
   render();
 }
+
 $("#prev").onclick = ()=>moveMonth(-1);
 $("#next").onclick = ()=>moveMonth(1);
 $("#miniPrev").onclick = ()=>moveMonth(-1);
 $("#miniNext").onclick = ()=>moveMonth(1);
+
 $("#today").onclick = ()=>{
   cursor = new Date();
   cursor.setDate(1);
   render();
 };
+
 document.querySelectorAll(".filter-button").forEach(button=>{
   button.onclick = ()=>{
-    document.querySelectorAll(".filter-button").forEach(b=>b.classList.remove("active"));
+    document
+      .querySelectorAll(".filter-button")
+      .forEach(item=>item.classList.remove("active"));
+
     button.classList.add("active");
     filter = button.dataset.filter;
     render();
   };
 });
+
 $("#close").onclick = ()=>$("#modal").classList.remove("open");
+
 $("#modal").onclick = event=>{
-  if(event.target.id === "modal") $("#modal").classList.remove("open");
+  if(event.target.id === "modal"){
+    $("#modal").classList.remove("open");
+  }
 };
+
 document.addEventListener("keydown",event=>{
-  if(event.key === "Escape") $("#modal").classList.remove("open");
+  if(event.key === "Escape"){
+    $("#modal").classList.remove("open");
+  }
 });
+
 load();
