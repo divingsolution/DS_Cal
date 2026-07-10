@@ -2,87 +2,131 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f7f8">
   <title>다이빙솔루션 일정표</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="calendar.css">
 </head>
 <body>
-<main class="wrap">
-  <header class="top">
-    <a class="brand" href="/">
-      <div class="logo">DS</div>
-      <div>
-        <b>DIVING SOLUTION</b>
-        <small>교육 · 국내외 다이빙 투어</small>
+  <main class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="/">
+        <span class="brand-mark">DS</span>
+        <span class="brand-copy">
+          <strong>DIVING SOLUTION</strong>
+          <small>교육 · 국내외 다이빙 투어</small>
+        </span>
+      </a>
+
+      <div class="contact-actions">
+        <a
+          class="contact-button kakao"
+          href="https://pf.kakao.com/_sxaxmfK"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="contact-icon">●</span>
+          카카오톡 1:1 상담
+        </a>
+        <a class="contact-button phone" href="tel:01096245805">
+          <span class="contact-icon">☎</span>
+          전화 문의
+        </a>
       </div>
-    </a>
+    </header>
 
-    <div class="contact-actions">
-      <!-- 아래 카카오톡 링크를 실제 1:1 채팅 링크로 교체하세요. -->
-      <a
-        class="contact-btn kakao"
-        href="https://pf.kakao.com/_sxaxmfK/chat"
-        target="_blank"
-        rel="noopener"
-      >
-        카카오톡 1:1 상담
-      </a>
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">DIVING SCHEDULE</p>
+        <h1>이번 달,<br><span>바다로 떠날 시간</span></h1>
+        <p class="hero-description">
+          다이빙솔루션의 교육과 국내외 투어 일정을 확인하세요.<br>
+          일정은 수시로 업데이트됩니다.
+        </p>
+      </div>
+    </section>
 
-      <a class="contact-btn phone" href="tel:01096245805">
-        전화 문의
-      </a>
-    </div>
-  </header>
+    <section class="schedule-toolbar">
+      <div class="month-navigation">
+        <button class="icon-button" id="prev" aria-label="이전 달">←</button>
+        <strong class="month-title" id="monthTitle"></strong>
+        <button class="icon-button" id="next" aria-label="다음 달">→</button>
+        <button class="today-button" id="today">오늘</button>
+      </div>
 
-  <section class="hero">
-    <h1>이번 달,<span>바다로 떠날 시간</span></h1>
-    <p>
-      다이빙솔루션의 교육과 국내외 투어 일정을 확인하세요.
-      일정은 수시로 업데이트됩니다.
-    </p>
-  </section>
+      <div class="filters">
+        <button class="filter-button active" data-filter="전체">전체</button>
+        <button class="filter-button" data-filter="국내투어">국내투어</button>
+        <button class="filter-button" data-filter="해외투어">해외투어</button>
+        <button class="filter-button" data-filter="교육">교육</button>
+        <button class="filter-button" data-filter="프로과정">프로과정</button>
+      </div>
+    </section>
 
-  <div class="toolbar">
-    <div class="monthnav">
-      <button class="pill" id="prev" aria-label="이전 달">←</button>
-      <div class="monthtitle" id="monthTitle"></div>
-      <button class="pill" id="next" aria-label="다음 달">→</button>
-      <button class="pill" id="today">오늘</button>
-    </div>
+    <section class="content-grid">
+      <div class="calendar-card">
+        <div class="week-header">
+          <div>일</div><div>월</div><div>화</div><div>수</div>
+          <div>목</div><div>금</div><div>토</div>
+        </div>
+        <div id="calendarBody" class="calendar-body"></div>
+        <div id="mobileList" class="mobile-list"></div>
+      </div>
 
-    <div class="filters">
-      <button class="chip active" data-filter="전체">전체</button>
-      <button class="chip" data-filter="국내투어">국내투어</button>
-      <button class="chip" data-filter="해외투어">해외투어</button>
-      <button class="chip" data-filter="교육">교육</button>
-      <button class="chip" data-filter="프로과정">프로과정</button>
+      <aside class="sidebar">
+        <section class="side-card mini-calendar-card">
+          <div class="mini-head">
+            <button id="miniPrev" aria-label="이전 달">←</button>
+            <strong id="miniMonthTitle"></strong>
+            <button id="miniNext" aria-label="다음 달">→</button>
+          </div>
+          <div class="mini-week">
+            <span>일</span><span>월</span><span>화</span><span>수</span>
+            <span>목</span><span>금</span><span>토</span>
+          </div>
+          <div id="miniCalendar" class="mini-grid"></div>
+        </section>
+
+        <section class="side-card">
+          <h2>범례</h2>
+          <div class="legend-list">
+            <span><i class="legend-dot open"></i>모집중</span>
+            <span><i class="legend-dot urgent"></i>마감임박</span>
+            <span><i class="legend-dot closed"></i>마감</span>
+            <span><i class="legend-dot ended"></i>종료된 일정</span>
+          </div>
+        </section>
+
+        <section class="side-card notice-card">
+          <h2>안내사항</h2>
+          <ul>
+            <li>일정을 클릭하면 상세 정보를 확인할 수 있습니다.</li>
+            <li>카카오톡 1:1 상담으로 일정 및 교육 문의가 가능합니다.</li>
+            <li>전화 문의는 운영시간에 연결됩니다.</li>
+          </ul>
+        </section>
+      </aside>
+    </section>
+
+    <footer>© 2026 Diving Solution. All rights reserved.</footer>
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <button class="modal-close" id="close" aria-label="닫기">×</button>
+      <p class="modal-category" id="mCategory"></p>
+      <h2 id="mTitle"></h2>
+      <div class="modal-meta" id="mInfo"></div>
+      <div class="modal-actions">
+        <a class="primary-action" id="mLink" target="_blank" rel="noopener">상세 페이지 보기</a>
+        <a class="secondary-action" href="https://pf.kakao.com/_sxaxmfK" target="_blank" rel="noopener">카카오톡 문의</a>
+      </div>
     </div>
   </div>
 
-  <section class="card calendar">
-    <div class="week calendar-week-header">
-      <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
-    </div>
-
-    <div id="calendarBody" class="calendar-body"></div>
-    <div class="list" id="list"></div>
-  </section>
-</main>
-
-<div class="modal" id="modal">
-  <div class="modalbox">
-    <h2 id="mTitle"></h2>
-    <div class="meta" id="mInfo"></div>
-    <div class="actions">
-      <a class="btn primary" id="mLink" target="_blank" rel="noopener">상세 페이지 보기</a>
-      <button class="btn" id="close">닫기</button>
-    </div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
-<script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
