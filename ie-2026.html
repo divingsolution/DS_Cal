@@ -150,7 +150,208 @@
         </article>
       </div>
     </section>
+/* 비용 안내 */
+.ie-cost-section{
+  margin-top:32px;
+  padding:34px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:#fff;
+  box-shadow:var(--shadow-soft);
+}
 
+.cost-layout{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+
+.cost-card{
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:
+    linear-gradient(180deg,#ffffff 0%,#f8fbfc 100%);
+  box-shadow:0 8px 22px rgba(26,66,84,.07);
+}
+
+.primary-cost{
+  border-color:#bce6e9;
+  background:
+    linear-gradient(135deg,#eefafa 0%,#ffffff 72%);
+}
+
+.cost-card-head{
+  margin-bottom:18px;
+  padding-bottom:15px;
+  border-bottom:1px solid var(--line);
+}
+
+.cost-card-head h3{
+  margin:6px 0 0;
+  font-size:1.35rem;
+  font-weight:800;
+  letter-spacing:-.04em;
+}
+
+.cost-label{
+  color:var(--teal-dark);
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.11em;
+}
+
+.cost-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:18px;
+  padding:12px 0;
+  border-bottom:1px solid #edf2f4;
+}
+
+.cost-row:last-child{
+  border-bottom:0;
+}
+
+.cost-row span{
+  color:#5e7582;
+  font-size:.87rem;
+  line-height:1.5;
+}
+
+.cost-row strong{
+  flex:0 0 auto;
+  color:var(--text);
+  font-size:.94rem;
+  font-weight:800;
+  text-align:right;
+}
+
+.cost-total{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  margin-top:18px;
+  padding:16px;
+  border-radius:16px;
+  color:#fff;
+  background:linear-gradient(135deg,#20bbc3,#119da6);
+}
+
+.cost-total span{
+  font-size:.82rem;
+  font-weight:700;
+}
+
+.cost-total strong{
+  font-size:1.2rem;
+  font-weight:800;
+}
+
+.duration-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.duration-grid div{
+  padding:18px 10px;
+  border:1px solid #dbeaec;
+  border-radius:16px;
+  text-align:center;
+  background:#f2fafb;
+}
+
+.duration-grid strong{
+  display:block;
+  color:var(--teal-dark);
+  font-size:1.55rem;
+  font-weight:800;
+}
+
+.duration-grid span{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:.77rem;
+  font-weight:700;
+}
+
+.cost-note{
+  margin:17px 0 0;
+  color:var(--muted);
+  font-size:.78rem;
+  line-height:1.65;
+}
+
+.exchange-notice{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin-top:16px;
+  padding:17px 19px;
+  border:1px solid #d8e7ea;
+  border-radius:17px;
+  background:#f5fafb;
+}
+
+.exchange-notice strong{
+  flex:0 0 auto;
+  color:var(--teal-dark);
+  font-size:.8rem;
+  font-weight:800;
+}
+
+.exchange-notice p{
+  margin:0;
+  color:#667d89;
+  font-size:.8rem;
+  line-height:1.65;
+}
+
+@media(max-width:850px){
+  .cost-layout{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:680px){
+  .ie-cost-section{
+    margin-top:20px;
+    padding:22px 18px;
+    border-radius:22px;
+  }
+
+  .cost-card{
+    padding:20px 17px;
+  }
+
+  .cost-row{
+    gap:12px;
+  }
+
+  .duration-grid{
+    grid-template-columns:1fr;
+  }
+
+  .duration-grid div{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    text-align:left;
+  }
+
+  .duration-grid span{
+    margin-top:0;
+  }
+
+  .exchange-notice{
+    flex-direction:column;
+    gap:5px;
+  }
+}
   </main>
 
   <script src="ie-2026.js"></script>
