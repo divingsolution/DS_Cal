@@ -8,12 +8,14 @@
   --teal-dark:#0f8f99;
   --cyan:#6fd8df;
   --kakao:#fee500;
+  --ended:#98a8b1;
   --shadow:0 20px 60px rgba(26,66,84,.14);
   --shadow-soft:0 10px 28px rgba(26,66,84,.09);
 }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
+
 body{
   margin:0;
   min-height:100vh;
@@ -24,6 +26,7 @@ body{
     linear-gradient(180deg,#fbfdfe 0%,var(--page) 100%);
   letter-spacing:-.02em;
 }
+
 a{color:inherit;text-decoration:none}
 
 .ie-page{
@@ -41,6 +44,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .ie-brand{display:flex;align-items:center;gap:13px}
+
 .brand-mark{
   width:52px;
   height:52px;
@@ -54,6 +58,7 @@ a{color:inherit;text-decoration:none}
   background:linear-gradient(135deg,#45ced8,#71e1c3);
   box-shadow:0 10px 24px rgba(29,183,190,.23);
 }
+
 .ie-brand strong{display:block;font-size:1.02rem;font-weight:800;letter-spacing:.015em}
 .ie-brand small{display:block;margin-top:4px;color:var(--muted);font-size:.78rem;font-weight:500}
 
@@ -72,61 +77,115 @@ a{color:inherit;text-decoration:none}
   box-shadow:var(--shadow-soft);
   transition:.18s ease;
 }
+
 .back-button:hover{transform:translateY(-2px);border-color:#b9dfe3;color:var(--teal-dark)}
 
 .ie-hero{
+  position:relative;
+  min-height:570px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  border-radius:30px;
   background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,.98) 0%,
-      rgba(255,255,255,.92) 35%,
-      rgba(255,255,255,.55) 62%,
-      rgba(10,40,55,.16) 100%
-    ),
-    url("images/padi-idc-hero.jpg")
-    center / cover no-repeat;
+    linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.92) 35%,rgba(255,255,255,.55) 62%,rgba(10,40,55,.16) 100%),
+    url("./images/padi-idc-hero.jpg") center / cover no-repeat;
+  box-shadow:var(--shadow);
 }
 
-.ie-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,126,143,.02),rgba(5,45,61,.15));pointer-events:none}
-.ie-hero::after{content:"PADI IE";position:absolute;right:44px;bottom:24px;color:rgba(255,255,255,.22);font-size:clamp(3.5rem,9vw,8rem);font-weight:800;letter-spacing:-.08em;line-height:1;pointer-events:none}
+.ie-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(15,126,143,.02),rgba(5,45,61,.15));
+  pointer-events:none;
+}
 
-.hero-content{position:relative;z-index:2;width:min(720px,100%);padding:64px 64px 68px}
-.eyebrow{margin:0 0 16px;color:var(--teal-dark);font-size:.78rem;font-weight:800;letter-spacing:.14em}
-.ie-hero h1{margin:0;max-width:700px;font-size:clamp(3rem,6vw,6.7rem);line-height:1.01;letter-spacing:-.065em;font-weight:800}
-.ie-hero h1::after{content:"";display:block;width:86px;height:6px;margin-top:24px;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--cyan))}
-.hero-description{max-width:560px;margin:27px 0 0;color:#466473;font-size:1rem;line-height:1.8;font-weight:500}
+.ie-hero::after{
+  content:"PADI IE";
+  position:absolute;
+  right:44px;
+  bottom:24px;
+  color:rgba(255,255,255,.22);
+  font-size:clamp(3.5rem,9vw,8rem);
+  font-weight:800;
+  letter-spacing:-.08em;
+  line-height:1;
+  pointer-events:none;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  width:min(720px,100%);
+  padding:64px 64px 68px;
+}
+
+.eyebrow{
+  margin:0 0 16px;
+  color:var(--teal-dark);
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+
+.ie-hero h1{
+  margin:0;
+  max-width:700px;
+  font-size:clamp(3rem,6vw,6.7rem);
+  line-height:1.01;
+  letter-spacing:-.065em;
+  font-weight:800;
+}
+
+.ie-hero h1::after{
+  content:"";
+  display:block;
+  width:86px;
+  height:6px;
+  margin-top:24px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--teal),var(--cyan));
+}
+
+.hero-description{
+  max-width:560px;
+  margin:27px 0 0;
+  color:#466473;
+  font-size:1rem;
+  line-height:1.8;
+  font-weight:500;
+}
+
 .hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
-.primary-button,.secondary-button{min-height:50px;display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border-radius:15px;font-size:.93rem;font-weight:800;transition:.18s ease}
-.primary-button{color:#fff;background:linear-gradient(135deg,#1fc0c8,#109ca7);box-shadow:0 12px 28px rgba(29,183,190,.28)}
-.secondary-button{color:#2f2900;background:var(--kakao);border:1px solid #efd700;box-shadow:0 12px 26px rgba(183,160,0,.14)}
+
+.primary-button,.secondary-button{
+  min-height:50px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:13px 20px;
+  border-radius:15px;
+  font-size:.93rem;
+  font-weight:800;
+  transition:.18s ease;
+}
+
+.primary-button{
+  color:#fff;
+  background:linear-gradient(135deg,#1fc0c8,#109ca7);
+  box-shadow:0 12px 28px rgba(29,183,190,.28);
+}
+
+.secondary-button{
+  color:#2f2900;
+  background:var(--kakao);
+  border:1px solid #efd700;
+  box-shadow:0 12px 26px rgba(183,160,0,.14);
+}
+
 .primary-button:hover,.secondary-button:hover{transform:translateY(-2px)}
 
-@media(max-width:900px){
-  .ie-hero{min-height:500px;background-position:60% center}
-  .hero-content{padding:52px 42px 58px}
-  .ie-hero::after{right:24px;bottom:18px}
-}
-
-@media(max-width:620px){
-  .ie-page{width:min(100% - 20px,1440px);padding-top:14px}
-  .ie-header{align-items:flex-start;flex-direction:column;gap:14px}
-  .back-button{width:100%}
-  .ie-hero{
-    min-height:510px;
-    border-radius:22px;
-    background:
-      linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.93) 55%,rgba(255,255,255,.60) 78%,rgba(7,41,55,.18) 100%),
-      url("https://images.unsplash.com/photo-1682686581221-c126206d12f0?auto=format&fit=crop&w=1200&q=84") 62% center / cover no-repeat;
-  }
-  .hero-content{align-self:flex-start;padding:36px 24px 42px}
-  .eyebrow{font-size:.68rem;letter-spacing:.11em}
-  .ie-hero h1{font-size:2.65rem;line-height:1.06}
-  .hero-description{margin-top:22px;font-size:.89rem;line-height:1.72}
-  .hero-actions{display:grid;grid-template-columns:1fr;width:100%}
-  .primary-button,.secondary-button{width:100%}
-  .ie-hero::after{right:16px;bottom:14px;font-size:3.5rem}
-}
-/* 2026 IE 일정 */
 .ie-schedule-section{
   margin-top:32px;
   padding:34px;
@@ -180,13 +239,12 @@ a{color:inherit;text-decoration:none}
   grid-template-columns:auto 1fr;
   gap:14px;
   align-items:center;
-  min-height:148px;
+  min-height:166px;
   padding:18px;
   overflow:hidden;
   border:1px solid var(--line);
   border-radius:20px;
-  background:
-    linear-gradient(180deg,#ffffff 0%,#f8fbfc 100%);
+  background:linear-gradient(180deg,#ffffff 0%,#f8fbfc 100%);
   box-shadow:0 8px 22px rgba(26,66,84,.07);
   transition:.18s ease;
 }
@@ -209,8 +267,7 @@ a{color:inherit;text-decoration:none}
 
 .ie-date-card.featured{
   border-color:#b8e4e8;
-  background:
-    linear-gradient(135deg,#eefafa 0%,#ffffff 72%);
+  background:linear-gradient(135deg,#eefafa 0%,#ffffff 72%);
 }
 
 .month-badge{
@@ -226,21 +283,28 @@ a{color:inherit;text-decoration:none}
   box-shadow:0 9px 20px rgba(29,183,190,.22);
 }
 
-.ie-date-card strong{
-  display:block;
-  font-size:1.2rem;
+.ie-date-card strong{display:block;font-size:1.16rem;font-weight:800;letter-spacing:-.035em}
+.ie-date-card p{margin:4px 0 0;color:var(--muted);font-size:.87rem;font-weight:600}
+
+.schedule-status{
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  min-height:24px;
+  font-size:.78rem;
   font-weight:800;
-  letter-spacing:-.035em;
 }
 
-.ie-date-card p{
-  margin:4px 0 0;
-  color:var(--muted);
-  font-size:.87rem;
-  font-weight:600;
+.schedule-status::before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--teal);
 }
 
-.ie-date-card a{
+.schedule-action{
   grid-column:1/-1;
   display:inline-flex;
   justify-content:center;
@@ -254,39 +318,75 @@ a{color:inherit;text-decoration:none}
   transition:.16s ease;
 }
 
-.ie-date-card a:hover{
+.schedule-action:hover{color:#fff;background:var(--teal)}
+
+.ie-date-card.ended{
+  border-color:#e2e7ea;
+  background:linear-gradient(180deg,#f7f9fa,#eef2f4);
+  box-shadow:none;
+}
+
+.ie-date-card.ended:hover{transform:none;box-shadow:none}
+
+.ie-date-card.ended .month-badge{
   color:#fff;
-  background:var(--teal);
+  background:linear-gradient(135deg,#a7b4bb,#8c9ba3);
+  box-shadow:none;
+}
+
+.ie-date-card.ended strong,
+.ie-date-card.ended p{
+  color:#84939b;
+}
+
+.ie-date-card.ended .schedule-status{
+  color:#7d8b93;
+}
+
+.ie-date-card.ended .schedule-status::before{
+  background:#9aa8af;
+}
+
+.ie-date-card.ended .schedule-action{
+  pointer-events:none;
+  color:#8a979e;
+  background:#e5eaed;
 }
 
 @media(max-width:1100px){
-  .ie-schedule-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
+  .ie-schedule-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:900px){
+  .ie-hero{min-height:500px;background-position:60% center}
+  .hero-content{padding:52px 42px 58px}
+  .ie-hero::after{right:24px;bottom:18px}
 }
 
 @media(max-width:680px){
-  .ie-schedule-section{
-    margin-top:20px;
-    padding:22px 18px;
+  .ie-schedule-section{margin-top:20px;padding:22px 18px;border-radius:22px}
+  .section-heading{align-items:flex-start;flex-direction:column;gap:7px}
+  .section-heading > p{text-align:left}
+  .ie-schedule-grid{grid-template-columns:1fr}
+  .ie-date-card{min-height:150px}
+}
+
+@media(max-width:620px){
+  .ie-page{width:min(100% - 20px,1440px);padding-top:14px}
+  .ie-header{align-items:flex-start;flex-direction:column;gap:14px}
+  .back-button{width:100%}
+  .ie-hero{
+    min-height:510px;
     border-radius:22px;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.93) 55%,rgba(255,255,255,.60) 78%,rgba(7,41,55,.18) 100%),
+      url("./images/padi-idc-hero.jpg") 62% center / cover no-repeat;
   }
-
-  .section-heading{
-    align-items:flex-start;
-    flex-direction:column;
-    gap:7px;
-  }
-
-  .section-heading > p{
-    text-align:left;
-  }
-
-  .ie-schedule-grid{
-    grid-template-columns:1fr;
-  }
-
-  .ie-date-card{
-    min-height:130px;
-  }
+  .hero-content{align-self:flex-start;padding:36px 24px 42px}
+  .eyebrow{font-size:.68rem;letter-spacing:.11em}
+  .ie-hero h1{font-size:2.65rem;line-height:1.06}
+  .hero-description{margin-top:22px;font-size:.89rem;line-height:1.72}
+  .hero-actions{display:grid;grid-template-columns:1fr;width:100%}
+  .primary-button,.secondary-button{width:100%}
+  .ie-hero::after{right:16px;bottom:14px;font-size:3.5rem}
 }
