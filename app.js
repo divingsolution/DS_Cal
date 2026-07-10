@@ -448,3 +448,35 @@ document.addEventListener("keydown",event=>{
 });
 
 load();
+
+// V3.1: iPhone Safari landscape detection fallback.
+// Some iOS Safari versions briefly report stale orientation media-query values
+// while the browser chrome is resizing, so use the actual viewport ratio too.
+(function setupResponsiveOrientationFallback(){
+  let viewportTimer;
+
+  function syncViewportMode(){
+    const isLandscapeMobile =
+      window.innerWidth > window.innerHeight && window.innerWidth <= 950;
+
+    document.documentElement.classList.toggle(
+      "is-landscape-mobile",
+      isLandscapeMobile
+    );
+  }
+
+  function scheduleSync(){
+    clearTimeout(viewportTimer);
+    syncViewportMode();
+    viewportTimer = setTimeout(syncViewportMode, 180);
+  }
+
+  window.addEventListener("resize", scheduleSync, { passive:true });
+  window.addEventListener("orientationchange", scheduleSync, { passive:true });
+  window.addEventListener("pageshow", scheduleSync, { passive:true });
+  document.addEventListener("visibilitychange", ()=>{
+    if(!document.hidden) scheduleSync();
+  });
+
+  scheduleSync();
+})();

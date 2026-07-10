@@ -942,3 +942,50 @@ body.sheet-open{overflow:hidden}
   .calendar-card{overflow-x:auto}
   .week-header,.calendar-body{min-width:680px}
 }
+
+/* V3.1: iPhone Safari landscape fallback
+   Uses both orientation media query and a JS-added class. */
+@media (orientation:landscape) and (max-width:950px){
+  .week-header{display:grid!important}
+  .calendar-body{display:grid!important;grid-template-rows:repeat(6,minmax(82px,auto))}
+  .mobile-list{display:none!important}
+  .calendar-week{min-height:82px}
+  .calendar-day{padding:5px}
+  .week-header div{padding:8px 5px;font-size:.68rem}
+  .day-number{font-size:.66rem}
+  .event-layer{inset:28px 3px 3px;grid-auto-rows:24px}
+  .event-bar{padding:4px 5px;border-left-width:3px;border-radius:6px;font-size:.56rem}
+  .content-grid{grid-template-columns:1fr}
+  .sidebar{grid-template-columns:repeat(3,1fr)}
+}
+
+/* Safari fallback when orientation media queries are delayed or misreported */
+html.is-landscape-mobile .week-header{display:grid!important}
+html.is-landscape-mobile .calendar-body{
+  display:grid!important;
+  grid-template-rows:repeat(6,minmax(82px,auto))
+}
+html.is-landscape-mobile .mobile-list{display:none!important}
+html.is-landscape-mobile .calendar-week{min-height:82px}
+html.is-landscape-mobile .calendar-day{padding:5px}
+html.is-landscape-mobile .week-header div{padding:8px 5px;font-size:.68rem}
+html.is-landscape-mobile .day-number{font-size:.66rem}
+html.is-landscape-mobile .event-layer{inset:28px 3px 3px;grid-auto-rows:24px}
+html.is-landscape-mobile .event-bar{
+  padding:4px 5px;
+  border-left-width:3px;
+  border-radius:6px;
+  font-size:.56rem
+}
+html.is-landscape-mobile .content-grid{grid-template-columns:1fr}
+html.is-landscape-mobile .sidebar{grid-template-columns:repeat(3,1fr)}
+
+@media (max-width:760px) and (orientation:landscape){
+  .calendar-card{overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+html.is-landscape-mobile .calendar-card{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+html.is-landscape-mobile .week-header,
+html.is-landscape-mobile .calendar-body{min-width:680px}
