@@ -75,16 +75,16 @@ a{color:inherit;text-decoration:none}
 .back-button:hover{transform:translateY(-2px);border-color:#b9dfe3;color:var(--teal-dark)}
 
 .ie-hero{
-  position:relative;
-  min-height:570px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  border-radius:30px;
   background:
-    linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.94) 30%,rgba(255,255,255,.68) 53%,rgba(255,255,255,.16) 78%,rgba(4,34,48,.20) 100%),
-    url("https://images.unsplash.com/photo-1682686581221-c126206d12f0?auto=format&fit=crop&w=2200&q=88") center 48% / cover no-repeat;
-  box-shadow:var(--shadow);
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.98) 0%,
+      rgba(255,255,255,.92) 35%,
+      rgba(255,255,255,.55) 62%,
+      rgba(10,40,55,.16) 100%
+    ),
+    url("images/padi-idc-hero.jpg")
+    center / cover no-repeat;
 }
 .ie-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,126,143,.02),rgba(5,45,61,.15));pointer-events:none}
 .ie-hero::after{content:"PADI IE";position:absolute;right:44px;bottom:24px;color:rgba(255,255,255,.22);font-size:clamp(3.5rem,9vw,8rem);font-weight:800;letter-spacing:-.08em;line-height:1;pointer-events:none}
