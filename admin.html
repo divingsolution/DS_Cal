@@ -1,13 +1,185 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>일정 관리자 | 다이빙솔루션</title><link rel="stylesheet" href="styles.css"></head><body><main class="wrap">
-<header class="top"><a class="brand" href="/"><div class="logo">DS</div><div><b>일정 관리자</b><small>다이빙솔루션</small></div></a><a class="pill" href="/">공개 일정표</a></header>
-<section id="loginView" class="loginwrap"><div class="card loginbox"><h1>관리자 로그인</h1><p style="color:var(--muted)">Supabase에 등록한 관리자 이메일과 비밀번호로 로그인하세요.</p><form id="loginForm"><div class="field"><label>이메일</label><input id="email" type="email" required></div><div class="field"><label>비밀번호</label><input id="password" type="password" required></div><button class="btn primary" type="submit">로그인</button></form></div></section>
-<section id="adminView" class="hidden"><div class="toolbar"><div><h1 style="margin:0">일정 관리</h1><p style="color:var(--muted)">저장 즉시 공개 캘린더에 반영됩니다.</p></div><button id="logout" class="btn">로그아웃</button></div>
-<div class="admin-grid"><div class="card formcard"><div class="notice">당일 일정은 아래 ‘당일 일정’에 체크하세요.</div><form id="eventForm">
-<div class="field"><label>일정 제목</label><input id="title" required placeholder="제목을 기입하세요"></div>
-<div class="row"><div class="field"><label>시작일</label><input id="start_date" type="date" required></div><div class="field"><label>종료일</label><input id="end_date" type="date"></div></div>
-<div class="checkline"><input id="same_day" type="checkbox"><label for="same_day">당일 일정</label></div>
-<div class="row"><div class="field"><label>분류</label><select id="category"><option>국내투어</option><option>해외투어</option><option>교육</option><option>프로과정</option></select></div><div class="field"><label>상태</label><select id="status"><option>모집중</option><option>마감임박</option><option>마감</option></select></div></div>
-<div class="field"><label>장소</label><input id="location" placeholder="장소를 기입하세요"></div><div class="field"><label>간단한 안내</label><textarea id="description" placeholder="일정에 대한 간단한 안내를 기입하세요"></textarea></div><div class="field"><label>상세 페이지 주소</label><input id="detail_url" type="url" placeholder="https://..."></div>
-<div class="actions"><button class="btn primary" type="submit"><span id="saveText">일정 저장</span></button><button class="btn hidden" id="cancelEdit" type="button">수정 취소</button></div></form></div>
-<div class="card tablecard"><h2>등록된 일정</h2><div id="items"></div></div></div></section></main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="admin.js"></script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>일정 관리자 | 다이빙솔루션</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <a class="admin-brand" href="/">
+        <span class="brand-mark">DS</span>
+        <span>
+          <strong>일정 관리자</strong>
+          <small>다이빙솔루션</small>
+        </span>
+      </a>
+
+      <a class="public-link" href="/">공개 일정표</a>
+    </header>
+
+    <section id="loginView" class="login-section">
+      <div class="login-card">
+        <p class="eyebrow">DIVING SOLUTION ADMIN</p>
+        <h1>관리자 로그인</h1>
+        <p class="login-description">
+          Supabase에 등록한 관리자 이메일과 비밀번호로 로그인하세요.
+        </p>
+
+        <form id="loginForm">
+          <div class="field">
+            <label for="email">이메일</label>
+            <input id="email" type="email" autocomplete="username" required>
+          </div>
+
+          <div class="field">
+            <label for="password">비밀번호</label>
+            <input id="password" type="password" autocomplete="current-password" required>
+          </div>
+
+          <button class="primary-button full" type="submit">로그인</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="adminView" class="hidden">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">SCHEDULE MANAGEMENT</p>
+          <h1>일정 관리</h1>
+          <p>저장 즉시 공개 캘린더에 반영됩니다.</p>
+        </div>
+
+        <button id="logout" class="secondary-button">로그아웃</button>
+      </div>
+
+      <div class="admin-grid">
+        <section class="form-card">
+          <div class="card-heading">
+            <div>
+              <span class="step-badge">NEW</span>
+              <h2>일정 등록</h2>
+            </div>
+            <p>당일 일정은 체크박스를 선택하세요.</p>
+          </div>
+
+          <form id="eventForm">
+            <div class="field">
+              <label for="title">일정 제목</label>
+              <input
+                id="title"
+                required
+                placeholder="제목을 기입하세요"
+              >
+            </div>
+
+            <div class="date-grid">
+              <div class="field">
+                <label for="start_date">시작일</label>
+                <input id="start_date" type="date" required>
+              </div>
+
+              <div class="field">
+                <label for="end_date">종료일</label>
+                <input id="end_date" type="date">
+              </div>
+            </div>
+
+            <label class="same-day-option" for="same_day">
+              <input id="same_day" type="checkbox">
+              <span class="checkmark"></span>
+              <span>
+                <strong>당일 일정</strong>
+                <small>시작일과 종료일을 동일하게 처리합니다.</small>
+              </span>
+            </label>
+
+            <div class="date-grid">
+              <div class="field">
+                <label for="category">분류</label>
+                <select id="category">
+                  <option>국내투어</option>
+                  <option>해외투어</option>
+                  <option>교육</option>
+                  <option>프로과정</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="status">상태</label>
+                <select id="status">
+                  <option>모집중</option>
+                  <option>마감임박</option>
+                  <option>마감</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="location">장소</label>
+              <input
+                id="location"
+                placeholder="장소를 기입하세요"
+              >
+            </div>
+
+            <div class="field">
+              <label for="description">간단한 안내</label>
+              <textarea
+                id="description"
+                placeholder="일정에 대한 간단한 안내를 기입하세요"
+              ></textarea>
+            </div>
+
+            <div class="field">
+              <label for="detail_url">상세 페이지 주소</label>
+              <input
+                id="detail_url"
+                type="url"
+                placeholder="https://..."
+              >
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit">
+                <span id="saveText">일정 저장</span>
+              </button>
+
+              <button
+                class="secondary-button hidden"
+                id="cancelEdit"
+                type="button"
+              >
+                수정 취소
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section class="list-card">
+          <div class="list-heading">
+            <div>
+              <p class="eyebrow">REGISTERED EVENTS</p>
+              <h2>등록된 일정</h2>
+            </div>
+          </div>
+
+          <div id="items" class="event-list"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
