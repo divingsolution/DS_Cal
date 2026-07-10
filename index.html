@@ -9,6 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+<style>
+.ie-feature-card{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:18px 0 24px;padding:20px 24px;border-radius:18px;background:linear-gradient(135deg,#0f172a,#1e3a5f);color:#fff;text-decoration:none;box-shadow:0 10px 24px rgba(0,0,0,.15)}
+.ie-feature-card:hover{transform:translateY(-2px);transition:.2s}.ie-feature-card small{opacity:.85;display:block}.ie-feature-card h3{margin:4px 0}.ie-feature-card p{margin:0;opacity:.9}.ie-feature-card .cta{background:#fff;color:#0f172a;padding:12px 18px;border-radius:999px;font-weight:700;white-space:nowrap}
+@media(max-width:768px){.ie-feature-card{flex-direction:column;align-items:flex-start}.ie-feature-card .cta{width:100%;text-align:center}}
+</style>
 </head>
 <body>
   <main class="page-shell">
@@ -87,6 +92,15 @@
         <button class="filter-button" data-filter="프로과정">프로과정</button>
       </div>
     </section>
+
+    <a class="ie-feature-card" href="ie-2026.html">
+      <div>
+        <small>PADI PROFESSIONAL</small>
+        <h3>2026 IE 일정 안내</h3>
+        <p>Instructor Examination 일정 · 준비사항 · 시험 안내</p>
+      </div>
+      <div class="cta">자세히 보기 →</div>
+    </a>
 
     <section class="content-grid">
       <div class="calendar-card">
