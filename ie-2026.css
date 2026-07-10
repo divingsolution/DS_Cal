@@ -126,3 +126,167 @@ a{color:inherit;text-decoration:none}
   .primary-button,.secondary-button{width:100%}
   .ie-hero::after{right:16px;bottom:14px;font-size:3.5rem}
 }
+/* 2026 IE 일정 */
+.ie-schedule-section{
+  margin-top:32px;
+  padding:34px;
+  border:1px solid var(--line);
+  border-radius:28px;
+  background:#fff;
+  box-shadow:var(--shadow-soft);
+}
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:24px;
+  margin-bottom:22px;
+}
+
+.section-heading h2{
+  margin:0;
+  font-size:clamp(1.8rem,3vw,2.7rem);
+  letter-spacing:-.045em;
+  font-weight:800;
+}
+
+.section-heading > p{
+  max-width:480px;
+  margin:0;
+  color:var(--muted);
+  font-size:.9rem;
+  line-height:1.7;
+  text-align:right;
+}
+
+.section-eyebrow{
+  margin:0 0 6px;
+  color:var(--teal-dark);
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.13em;
+}
+
+.ie-schedule-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+
+.ie-date-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:14px;
+  align-items:center;
+  min-height:148px;
+  padding:18px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:
+    linear-gradient(180deg,#ffffff 0%,#f8fbfc 100%);
+  box-shadow:0 8px 22px rgba(26,66,84,.07);
+  transition:.18s ease;
+}
+
+.ie-date-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 30px rgba(26,66,84,.12);
+}
+
+.ie-date-card::after{
+  content:"";
+  position:absolute;
+  width:90px;
+  height:90px;
+  right:-32px;
+  bottom:-38px;
+  border-radius:50%;
+  background:rgba(29,183,190,.08);
+}
+
+.ie-date-card.featured{
+  border-color:#b8e4e8;
+  background:
+    linear-gradient(135deg,#eefafa 0%,#ffffff 72%);
+}
+
+.month-badge{
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  border-radius:17px;
+  color:#fff;
+  background:linear-gradient(135deg,#21bec6,#139da8);
+  font-size:1rem;
+  font-weight:800;
+  box-shadow:0 9px 20px rgba(29,183,190,.22);
+}
+
+.ie-date-card strong{
+  display:block;
+  font-size:1.2rem;
+  font-weight:800;
+  letter-spacing:-.035em;
+}
+
+.ie-date-card p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:.87rem;
+  font-weight:600;
+}
+
+.ie-date-card a{
+  grid-column:1/-1;
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  min-height:42px;
+  border-radius:13px;
+  color:#0d7f88;
+  background:#e8f8f9;
+  font-size:.82rem;
+  font-weight:800;
+  transition:.16s ease;
+}
+
+.ie-date-card a:hover{
+  color:#fff;
+  background:var(--teal);
+}
+
+@media(max-width:1100px){
+  .ie-schedule-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:680px){
+  .ie-schedule-section{
+    margin-top:20px;
+    padding:22px 18px;
+    border-radius:22px;
+  }
+
+  .section-heading{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:7px;
+  }
+
+  .section-heading > p{
+    text-align:left;
+  }
+
+  .ie-schedule-grid{
+    grid-template-columns:1fr;
+  }
+
+  .ie-date-card{
+    min-height:130px;
+  }
+}
