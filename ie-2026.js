@@ -24,8 +24,19 @@
 
       const startDate = parseLocalDate(startValue);
       const endDate = parseLocalDate(endValue);
+      const manualStatus = card.dataset.manualStatus;
 
       card.classList.remove("ended", "ongoing", "upcoming");
+
+      if (manualStatus === "training-full") {
+        card.classList.add("training-full");
+        status.textContent = "현재 교육 진행 중 · 추가 모집 마감";
+        action.textContent = "추가 모집 마감";
+        action.removeAttribute("href");
+        action.removeAttribute("target");
+        action.setAttribute("aria-disabled", "true");
+        return;
+      }
 
       if (today > endDate) {
         card.classList.add("ended");

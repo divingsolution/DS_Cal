@@ -927,3 +927,62 @@ a{color:inherit;text-decoration:none}
   .final-cta{margin-top:20px;padding:24px 20px;border-radius:22px}
   .final-actions{width:100%;display:grid;grid-template-columns:1fr}
 }
+
+
+/* 7월 후보생 교육 진행 및 추가 모집 마감 */
+.ie-date-card.training-full{
+  border-color:#f0c77d;
+  background:linear-gradient(135deg,#fff8eb 0%,#ffffff 76%);
+  box-shadow:0 10px 26px rgba(169,113,20,.10);
+}
+
+.ie-date-card.training-full:hover{
+  transform:none;
+  box-shadow:0 10px 26px rgba(169,113,20,.10);
+}
+
+.ie-date-card.training-full .month-badge{
+  background:linear-gradient(135deg,#f3aa2b,#dc8615);
+  box-shadow:0 9px 20px rgba(220,134,21,.22);
+}
+
+.candidate-progress{
+  grid-column:1/-1;
+  position:relative;
+  z-index:1;
+  padding:12px 14px;
+  border:1px solid #f2d49b;
+  border-radius:13px;
+  background:#fff8e9;
+}
+
+.candidate-progress strong{
+  display:block;
+  color:#9b5b06;
+  font-size:.82rem;
+  font-weight:800;
+}
+
+.candidate-progress span{
+  display:block;
+  margin-top:4px;
+  color:#8a6a3f;
+  font-size:.72rem;
+  line-height:1.5;
+  font-weight:600;
+}
+
+.ie-date-card.training-full .schedule-status{
+  color:#a6640b;
+}
+
+.ie-date-card.training-full .schedule-status::before{
+  background:#ed9b21;
+}
+
+.ie-date-card.training-full .schedule-action{
+  pointer-events:none;
+  color:#886229;
+  background:#f3e3c5;
+  border:1px solid #ead0a0;
+}
