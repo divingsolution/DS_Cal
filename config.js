@@ -2,5 +2,5 @@
 // anon key는 브라우저 공개용 키입니다. service_role 키는 절대 넣지 마세요.
 window.APP_CONFIG = {
   SUPABASE_URL: "https://qwzywquikolvlgrymjfj.supabase.co",
-  SUPABASE_ANON_KEY: "여기에 Publishable Key"
+  SUPABASE_ANON_KEY: "sb_publishable_b0EIbgpqRgHDx0WpSV-7FA_pNzB4MxM"
 };
