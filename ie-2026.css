@@ -1,0 +1,127 @@
+:root{
+  --page:#f4f8f9;
+  --card:#ffffff;
+  --line:#dce7eb;
+  --text:#153445;
+  --muted:#6f8490;
+  --teal:#1db7be;
+  --teal-dark:#0f8f99;
+  --cyan:#6fd8df;
+  --kakao:#fee500;
+  --shadow:0 20px 60px rgba(26,66,84,.14);
+  --shadow-soft:0 10px 28px rgba(26,66,84,.09);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"Noto Sans KR",Pretendard,"Apple SD Gothic Neo",system-ui,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 8% 0%,rgba(77,205,215,.14),transparent 26%),
+    linear-gradient(180deg,#fbfdfe 0%,var(--page) 100%);
+  letter-spacing:-.02em;
+}
+a{color:inherit;text-decoration:none}
+
+.ie-page{
+  width:min(1440px,calc(100% - 40px));
+  margin:0 auto;
+  padding:22px 0 44px;
+}
+
+.ie-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:20px;
+}
+
+.ie-brand{display:flex;align-items:center;gap:13px}
+.brand-mark{
+  width:52px;
+  height:52px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  border-radius:15px;
+  color:#06353a;
+  font-size:1.05rem;
+  font-weight:800;
+  background:linear-gradient(135deg,#45ced8,#71e1c3);
+  box-shadow:0 10px 24px rgba(29,183,190,.23);
+}
+.ie-brand strong{display:block;font-size:1.02rem;font-weight:800;letter-spacing:.015em}
+.ie-brand small{display:block;margin-top:4px;color:var(--muted);font-size:.78rem;font-weight:500}
+
+.back-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:10px 17px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,.9);
+  color:#355767;
+  font-size:.86rem;
+  font-weight:700;
+  box-shadow:var(--shadow-soft);
+  transition:.18s ease;
+}
+.back-button:hover{transform:translateY(-2px);border-color:#b9dfe3;color:var(--teal-dark)}
+
+.ie-hero{
+  position:relative;
+  min-height:570px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  border-radius:30px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.94) 30%,rgba(255,255,255,.68) 53%,rgba(255,255,255,.16) 78%,rgba(4,34,48,.20) 100%),
+    url("https://images.unsplash.com/photo-1682686581221-c126206d12f0?auto=format&fit=crop&w=2200&q=88") center 48% / cover no-repeat;
+  box-shadow:var(--shadow);
+}
+.ie-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,126,143,.02),rgba(5,45,61,.15));pointer-events:none}
+.ie-hero::after{content:"PADI IE";position:absolute;right:44px;bottom:24px;color:rgba(255,255,255,.22);font-size:clamp(3.5rem,9vw,8rem);font-weight:800;letter-spacing:-.08em;line-height:1;pointer-events:none}
+
+.hero-content{position:relative;z-index:2;width:min(720px,100%);padding:64px 64px 68px}
+.eyebrow{margin:0 0 16px;color:var(--teal-dark);font-size:.78rem;font-weight:800;letter-spacing:.14em}
+.ie-hero h1{margin:0;max-width:700px;font-size:clamp(3rem,6vw,6.7rem);line-height:1.01;letter-spacing:-.065em;font-weight:800}
+.ie-hero h1::after{content:"";display:block;width:86px;height:6px;margin-top:24px;border-radius:999px;background:linear-gradient(90deg,var(--teal),var(--cyan))}
+.hero-description{max-width:560px;margin:27px 0 0;color:#466473;font-size:1rem;line-height:1.8;font-weight:500}
+.hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+.primary-button,.secondary-button{min-height:50px;display:inline-flex;align-items:center;justify-content:center;padding:13px 20px;border-radius:15px;font-size:.93rem;font-weight:800;transition:.18s ease}
+.primary-button{color:#fff;background:linear-gradient(135deg,#1fc0c8,#109ca7);box-shadow:0 12px 28px rgba(29,183,190,.28)}
+.secondary-button{color:#2f2900;background:var(--kakao);border:1px solid #efd700;box-shadow:0 12px 26px rgba(183,160,0,.14)}
+.primary-button:hover,.secondary-button:hover{transform:translateY(-2px)}
+
+@media(max-width:900px){
+  .ie-hero{min-height:500px;background-position:60% center}
+  .hero-content{padding:52px 42px 58px}
+  .ie-hero::after{right:24px;bottom:18px}
+}
+
+@media(max-width:620px){
+  .ie-page{width:min(100% - 20px,1440px);padding-top:14px}
+  .ie-header{align-items:flex-start;flex-direction:column;gap:14px}
+  .back-button{width:100%}
+  .ie-hero{
+    min-height:510px;
+    border-radius:22px;
+    background:
+      linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.93) 55%,rgba(255,255,255,.60) 78%,rgba(7,41,55,.18) 100%),
+      url("https://images.unsplash.com/photo-1682686581221-c126206d12f0?auto=format&fit=crop&w=1200&q=84") 62% center / cover no-repeat;
+  }
+  .hero-content{align-self:flex-start;padding:36px 24px 42px}
+  .eyebrow{font-size:.68rem;letter-spacing:.11em}
+  .ie-hero h1{font-size:2.65rem;line-height:1.06}
+  .hero-description{margin-top:22px;font-size:.89rem;line-height:1.72}
+  .hero-actions{display:grid;grid-template-columns:1fr;width:100%}
+  .primary-button,.secondary-button{width:100%}
+  .ie-hero::after{right:16px;bottom:14px;font-size:3.5rem}
+}
