@@ -150,208 +150,133 @@
         </article>
       </div>
     </section>
-/* 비용 안내 */
-.ie-cost-section{
-  margin-top:32px;
-  padding:34px;
-  border:1px solid var(--line);
-  border-radius:28px;
-  background:#fff;
-  box-shadow:var(--shadow-soft);
-}
+<section class="ie-cost-section">
+  <div class="section-heading">
+    <div>
+      <p class="section-eyebrow">IDC & EFRI COST</p>
+      <h2>교육 및 등록 비용 안내</h2>
+    </div>
+    <p>
+      교육비와 PADI 신청비용은 구분되며, 호주달러 비용은 환율에 따라 달라질 수 있습니다.
+    </p>
+  </div>
 
-.cost-layout{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
-}
+  <div class="cost-layout">
 
-.cost-card{
-  padding:24px;
-  border:1px solid var(--line);
-  border-radius:22px;
-  background:
-    linear-gradient(180deg,#ffffff 0%,#f8fbfc 100%);
-  box-shadow:0 8px 22px rgba(26,66,84,.07);
-}
+    <article class="cost-card primary-cost">
+      <div class="cost-card-head">
+        <span class="cost-label">교육비</span>
+        <h3>IDC & EFRI</h3>
+      </div>
 
-.primary-cost{
-  border-color:#bce6e9;
-  background:
-    linear-gradient(135deg,#eefafa 0%,#ffffff 72%);
-}
+      <div class="cost-row">
+        <span>IDC 강사개발과정</span>
+        <strong>250만원</strong>
+      </div>
 
-.cost-card-head{
-  margin-bottom:18px;
-  padding-bottom:15px;
-  border-bottom:1px solid var(--line);
-}
+      <div class="cost-row">
+        <span>EFRI 응급처치 강사과정</span>
+        <strong>50만원</strong>
+      </div>
 
-.cost-card-head h3{
-  margin:6px 0 0;
-  font-size:1.35rem;
-  font-weight:800;
-  letter-spacing:-.04em;
-}
+      <div class="cost-total">
+        <span>교육비 합계</span>
+        <strong>300만원</strong>
+      </div>
+    </article>
 
-.cost-label{
-  color:var(--teal-dark);
-  font-size:.7rem;
-  font-weight:800;
-  letter-spacing:.11em;
-}
+    <article class="cost-card">
+      <div class="cost-card-head">
+        <span class="cost-label">교재 및 신청비</span>
+        <h3>PADI 등록비용</h3>
+      </div>
 
-.cost-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:18px;
-  padding:12px 0;
-  border-bottom:1px solid #edf2f4;
-}
+      <div class="cost-row">
+        <span>교재비</span>
+        <strong>85만원</strong>
+      </div>
 
-.cost-row:last-child{
-  border-bottom:0;
-}
+      <div class="cost-row">
+        <span>보조강사 신청비</span>
+        <strong>138 AUD</strong>
+      </div>
 
-.cost-row span{
-  color:#5e7582;
-  font-size:.87rem;
-  line-height:1.5;
-}
+      <div class="cost-row">
+        <span>강사시험 신청비</span>
+        <strong>1,120 AUD</strong>
+      </div>
 
-.cost-row strong{
-  flex:0 0 auto;
-  color:var(--text);
-  font-size:.94rem;
-  font-weight:800;
-  text-align:right;
-}
+      <div class="cost-row">
+        <span>강사 등록비</span>
+        <strong>331 AUD</strong>
+      </div>
 
-.cost-total{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:18px;
-  margin-top:18px;
-  padding:16px;
-  border-radius:16px;
-  color:#fff;
-  background:linear-gradient(135deg,#20bbc3,#119da6);
-}
+      <div class="cost-row">
+        <span>EFRI 등록비</span>
+        <strong>228 AUD</strong>
+      </div>
+    </article>
 
-.cost-total span{
-  font-size:.82rem;
-  font-weight:700;
-}
+    <article class="cost-card">
+      <div class="cost-card-head">
+        <span class="cost-label">해양실습</span>
+        <h3>실습비 안내</h3>
+      </div>
 
-.cost-total strong{
-  font-size:1.2rem;
-  font-weight:800;
-}
+      <div class="cost-row">
+        <span>개방수역 실습</span>
+        <strong>20만원 / 일</strong>
+      </div>
 
-.duration-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
+      <div class="cost-row">
+        <span>추가 개방수역</span>
+        <strong>5만원 / 회</strong>
+      </div>
 
-.duration-grid div{
-  padding:18px 10px;
-  border:1px solid #dbeaec;
-  border-radius:16px;
-  text-align:center;
-  background:#f2fafb;
-}
+      <div class="cost-row">
+        <span>해외 실습</span>
+        <strong>별도 문의</strong>
+      </div>
+    </article>
 
-.duration-grid strong{
-  display:block;
-  color:var(--teal-dark);
-  font-size:1.55rem;
-  font-weight:800;
-}
+    <article class="cost-card duration-card">
+      <div class="cost-card-head">
+        <span class="cost-label">교육기간</span>
+        <h3>과정별 소요기간</h3>
+      </div>
 
-.duration-grid span{
-  display:block;
-  margin-top:5px;
-  color:var(--muted);
-  font-size:.77rem;
-  font-weight:700;
-}
+      <div class="duration-grid">
+        <div>
+          <strong>8일</strong>
+          <span>IDC + EFRI</span>
+        </div>
 
-.cost-note{
-  margin:17px 0 0;
-  color:var(--muted);
-  font-size:.78rem;
-  line-height:1.65;
-}
+        <div>
+          <strong>7일</strong>
+          <span>IDC</span>
+        </div>
 
-.exchange-notice{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  margin-top:16px;
-  padding:17px 19px;
-  border:1px solid #d8e7ea;
-  border-radius:17px;
-  background:#f5fafb;
-}
+        <div>
+          <strong>1일</strong>
+          <span>EFRI</span>
+        </div>
+      </div>
 
-.exchange-notice strong{
-  flex:0 0 auto;
-  color:var(--teal-dark);
-  font-size:.8rem;
-  font-weight:800;
-}
+      <p class="cost-note">
+        최소 요구 실력에 도달하지 않은 경우 추가 교육이 필요할 수 있습니다.
+      </p>
+    </article>
 
-.exchange-notice p{
-  margin:0;
-  color:#667d89;
-  font-size:.8rem;
-  line-height:1.65;
-}
+  </div>
 
-@media(max-width:850px){
-  .cost-layout{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:680px){
-  .ie-cost-section{
-    margin-top:20px;
-    padding:22px 18px;
-    border-radius:22px;
-  }
-
-  .cost-card{
-    padding:20px 17px;
-  }
-
-  .cost-row{
-    gap:12px;
-  }
-
-  .duration-grid{
-    grid-template-columns:1fr;
-  }
-
-  .duration-grid div{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    text-align:left;
-  }
-
-  .duration-grid span{
-    margin-top:0;
-  }
-
-  .exchange-notice{
-    flex-direction:column;
-    gap:5px;
-  }
-}
+  <div class="exchange-notice">
+    <strong>안내</strong>
+    <p>
+      AUD 비용은 PADI 결제 시점의 환율과 정책에 따라 변동될 수 있습니다.
+      정확한 비용은 상담 시 다시 안내드립니다.
+    </p>
+  </div>
+</section>
   </main>
 
   <script src="ie-2026.js"></script>
