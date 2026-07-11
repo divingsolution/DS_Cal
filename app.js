@@ -5,8 +5,24 @@ const categoryClass = {
   "국내투어":"domestic",
   "해외투어":"overseas",
   "교육":"education",
-  "프로과정":"pro"
+  "프로과정":"pro",
+  "해양정화":"cleanup",
+  "강사시험":"instructor-exam"
 };
+
+const categoryIcon = {
+  "국내투어":"🌊",
+  "해외투어":"✈",
+  "교육":"🎓",
+  "프로과정":"◆",
+  "해양정화":"♻",
+  "강사시험":"IE"
+};
+
+function categoryLabel(category){
+  const icon = categoryIcon[category];
+  return icon ? `${icon} ${category}` : category;
+}
 
 let cursor = new Date();
 cursor.setDate(1);
@@ -184,10 +200,11 @@ function renderUpcoming(){
   upcoming.forEach(event=>{
     const button = document.createElement("button");
     button.className = "upcoming-card";
+    button.dataset.category = event.category;
     button.innerHTML = `
       <span class="date">${shortDateText(event)}</span>
       <h3>${event.title}</h3>
-      <p>${event.location || "장소 추후 안내"} · ${event.category}</p>
+      <p>${event.location || "장소 추후 안내"} · ${categoryLabel(event.category)}</p>
       <span class="badge">${statusLabel(event)}</span>
     `;
     button.onclick = ()=>openEvent(event);
@@ -236,6 +253,7 @@ function renderCalendar(year,month){
       button.style.gridRow = `${segment.track}`;
 
       button.innerHTML = `
+        <span class="event-category-mark">${categoryIcon[event.category] || ""}</span>
         ${event.title}
         <span class="event-status status-${currentStatusClass}">
           ${statusLabel(event)}
@@ -280,7 +298,7 @@ function renderMobile(year,month){
       <small>${dateText(event)}</small>
       <h3>${event.title}</h3>
       <small>
-        ${event.location || ""} · ${event.category} · ${statusLabel(event)}
+        ${event.location || ""} · ${categoryLabel(event.category)} · ${statusLabel(event)}
       </small>
     `;
 
@@ -360,7 +378,7 @@ function openDay(date){
       button.innerHTML = `
         <span class="day-sheet-status">${statusLabel(event)}</span>
         <strong>${event.title}</strong>
-        <small>${event.location || "장소 추후 안내"} · ${event.category}</small>
+        <small>${event.location || "장소 추후 안내"} · ${categoryLabel(event.category)}</small>
       `;
       button.onclick = ()=>{ closeDaySheet(); openEvent(event); };
       items.appendChild(button);
@@ -380,7 +398,7 @@ function closeDaySheet(){
 }
 
 function openEvent(event){
-  $("#mCategory").textContent = event.category;
+  $("#mCategory").textContent = categoryLabel(event.category);
   $("#mTitle").textContent = event.title;
 
   $("#mInfo").innerHTML = `
