@@ -76,6 +76,21 @@
       <div id="upcomingCards" class="upcoming-grid"></div>
     </section>
 
+
+    <section class="schedule-search" aria-label="일정 검색">
+      <div class="search-field">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input
+          id="scheduleSearch"
+          type="search"
+          placeholder="지역, 교육명, 투어명으로 검색하세요"
+          autocomplete="off"
+        >
+        <button id="clearSearch" class="search-clear hidden" type="button">초기화</button>
+      </div>
+      <p id="searchSummary" class="search-summary" aria-live="polite"></p>
+    </section>
+
     <section class="schedule-toolbar">
       <div class="month-navigation">
         <button class="icon-button" id="prev" aria-label="이전 달">←</button>
@@ -92,6 +107,7 @@
         <button class="filter-button" data-filter="프로과정">프로과정</button>
         <button class="filter-button" data-filter="해양정화">해양정화</button>
         <button class="filter-button" data-filter="강사시험">강사시험</button>
+        <button class="filter-button" data-filter="행사">행사</button>
       </div>
     </section>
 

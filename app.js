@@ -7,7 +7,8 @@ const categoryClass = {
   "교육":"education",
   "프로과정":"pro",
   "해양정화":"cleanup",
-  "강사시험":"instructor-exam"
+  "강사시험":"instructor-exam",
+  "행사":"event"
 };
 
 const categoryIcon = {
@@ -16,7 +17,8 @@ const categoryIcon = {
   "교육":"🎓",
   "프로과정":"◆",
   "해양정화":"♻",
-  "강사시험":"IE"
+  "강사시험":"IE",
+  "행사":"●"
 };
 
 function categoryLabel(category){
@@ -27,6 +29,7 @@ function categoryLabel(category){
 let cursor = new Date();
 cursor.setDate(1);
 let filter = "전체";
+let searchQuery = "";
 let events = [];
 
 const $ = s => document.querySelector(s);
@@ -75,9 +78,28 @@ function shortDateText(event){
 }
 
 function visibleEvents(){
-  return filter === "전체"
-    ? events
-    : events.filter(event => event.category === filter);
+  const normalizedQuery = searchQuery.trim().toLocaleLowerCase("ko-KR");
+
+  return events.filter(event => {
+    const matchesCategory =
+      filter === "전체" || event.category === filter;
+
+    if(!matchesCategory) return false;
+    if(!normalizedQuery) return true;
+
+    const searchableText = [
+      event.title,
+      event.location,
+      event.category,
+      event.description,
+      event.status
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLocaleLowerCase("ko-KR");
+
+    return searchableText.includes(normalizedQuery);
+  });
 }
 
 function statusClass(event){
@@ -94,6 +116,24 @@ function statusLabel(event){
   const cls = statusClass(event);
   if(cls === "ended") return "종료";
   return event.status || "모집중";
+}
+
+function updateSearchSummary(){
+  const summary = $("#searchSummary");
+  const clearButton = $("#clearSearch");
+  const count = visibleEvents().length;
+
+  clearButton.classList.toggle("hidden", !searchQuery);
+
+  if(!searchQuery){
+    summary.textContent = "";
+    return;
+  }
+
+  summary.textContent =
+    count > 0
+      ? `“${searchQuery}” 검색 결과 ${count}건`
+      : `“${searchQuery}”에 해당하는 일정이 없습니다.`;
 }
 
 async function load(){
@@ -347,6 +387,7 @@ function render(){
   renderCalendar(year,month);
   renderMobile(year,month);
   renderMini(year,month);
+  updateSearchSummary();
 }
 
 
@@ -446,6 +487,21 @@ document.querySelectorAll(".filter-button").forEach(button=>{
     filter = button.dataset.filter;
     render();
   };
+});
+
+const searchInput = $("#scheduleSearch");
+const clearSearchButton = $("#clearSearch");
+
+searchInput.addEventListener("input", event => {
+  searchQuery = event.target.value.trim();
+  render();
+});
+
+clearSearchButton.addEventListener("click", () => {
+  searchQuery = "";
+  searchInput.value = "";
+  searchInput.focus();
+  render();
 });
 
 $("#close").onclick = ()=>$("#modal").classList.remove("open");
