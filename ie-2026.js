@@ -28,9 +28,9 @@
 
       card.classList.remove("ended", "ongoing", "upcoming");
 
-      if (manualStatus === "training-full") {
+      if (manualStatus === "training-full" && today <= endDate) {
         card.classList.add("training-full");
-        status.textContent = "현재 교육 진행 중 · 추가 모집 마감";
+        status.textContent = "현재 교육 진행 중 · 2명 · 추가 모집 마감";
         action.textContent = "추가 모집 마감";
         action.removeAttribute("href");
         action.removeAttribute("target");
