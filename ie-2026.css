@@ -986,3 +986,18 @@ a{color:inherit;text-decoration:none}
   background:#f3e3c5;
   border:1px solid #ead0a0;
 }
+
+
+/* IE 합격 결과 표시 */
+.ie-date-card.ended.passed-result{
+  border-color:#b9dfcf;
+  background:linear-gradient(135deg,#f1faf6 0%,#f7f9fa 78%);
+}
+
+.ie-date-card.ended.passed-result .schedule-status{
+  color:#28765e;
+}
+
+.ie-date-card.ended.passed-result .schedule-status::before{
+  background:#42b88c;
+}

@@ -40,7 +40,20 @@
 
       if (today > endDate) {
         card.classList.add("ended");
-        status.textContent = "종료된 IE 일정";
+
+        const allPassed = card.dataset.allPassed === "true";
+        const passedCount = Number(card.dataset.passedCount || 0);
+
+        if (allPassed && passedCount > 0) {
+          status.textContent = `${passedCount}명의 후보생이 성공적으로 PADI IE에 합격했습니다.`;
+          card.classList.add("passed-result");
+        } else if (allPassed) {
+          status.textContent = "참가 후보생 전원이 성공적으로 PADI IE에 합격했습니다.";
+          card.classList.add("passed-result");
+        } else {
+          status.textContent = "종료된 IE 일정";
+        }
+
         action.textContent = "종료";
         action.removeAttribute("href");
         action.removeAttribute("target");
