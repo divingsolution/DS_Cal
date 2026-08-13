@@ -1001,3 +1001,9 @@ a{color:inherit;text-decoration:none}
 .ie-date-card.ended.passed-result .schedule-status::before{
   background:#42b88c;
 }
+
+
+/* 종료된 IE 일정에서는 교육 진행 안내 숨김 */
+.ie-date-card.ended .candidate-progress{
+  display:none;
+}
