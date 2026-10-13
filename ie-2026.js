@@ -7,7 +7,7 @@
   }
 
   function startOfToday() {
-    const now = new Date();
+    const now = parseLocalDate(new Intl.DateTimeFormat("sv-SE",{timeZone:"Asia/Seoul"}).format(new Date()));
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
   }
 
@@ -77,3 +77,5 @@
 
   updateScheduleStatus();
 })();
+// Keep upcoming exams visible first, with previous exams available on demand.
+(()=>{const grid=document.querySelector('.ie-schedule-grid');const past=[...grid.querySelectorAll('.ie-date-card.ended')];if(!past.length)return;const details=document.createElement('details');details.className='past-ie';const summary=document.createElement('summary');summary.textContent=`지난 IE 일정 ${past.length}개 보기`;const pastGrid=document.createElement('div');pastGrid.className='ie-schedule-grid';past.forEach(card=>pastGrid.append(card));details.append(summary,pastGrid);grid.after(details)})();

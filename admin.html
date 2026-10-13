@@ -31,7 +31,7 @@
         <p class="eyebrow">DIVING SOLUTION ADMIN</p>
         <h1>관리자 로그인</h1>
         <p class="login-description">
-          Supabase에 등록한 관리자 이메일과 비밀번호로 로그인하세요.
+          기존 관리자 이메일과 비밀번호로 로그인하세요.
         </p>
 
         <form id="loginForm">
@@ -151,7 +151,7 @@
               >
             </div>
 
-            <div class="form-actions">
+            <p id="saveMessage" role="status"></p><div class="form-actions">
               <button class="primary-button" type="submit">
                 <span id="saveText">일정 저장</span>
               </button>
@@ -175,7 +175,7 @@
             </div>
           </div>
 
-          <div id="items" class="event-list"></div>
+          <input id="adminSearch" type="search" placeholder="일정명 · 지역 검색" aria-label="등록 일정 검색"><label class="same-day-option"><input id="showPast" type="checkbox"> 종료된 일정도 보기</label><p id="adminMessage" role="status"></p><div id="items" class="event-list"></div>
         </section>
       </div>
     </section>

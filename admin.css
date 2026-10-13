@@ -381,3 +381,5 @@ a{text-decoration:none;color:inherit}
 
   .login-card{padding:24px 20px}
 }
+
+.admin-shell{max-width:1200px}.admin-grid{grid-template-columns:minmax(340px,480px) 1fr;align-items:start}.form-card,.list-card{box-shadow:none;border:1px solid #dce8eb}.login-description{color:#647b84}#adminSearch{width:100%;padding:12px;border:1px solid #dce8eb;border-radius:9px}#saveMessage,#adminMessage{color:#087f8c;font-size:14px}.adminitem{box-shadow:none}.primary-button{background:#087f8c}@media(max-width:800px){.admin-grid{grid-template-columns:1fr}}
