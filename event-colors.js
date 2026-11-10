@@ -10,7 +10,7 @@
  function rgb(c){return [1,3,5].map(i=>parseInt(c.slice(i,i+2),16))}
  function text(c){const [r,g,b]=rgb(c).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4});return .2126*r+.7152*g+.0722*b>.179?'#102c37':'#ffffff'}
  function tint(c){return '#'+rgb(c).map(v=>Math.round(v*.1+255*.9).toString(16).padStart(2,'0')).join('')}
- function style(e,solid=false){const c=color(e);return solid?'background-color:'+c+';color:'+text(c)+';border-color:'+c:'background-color:'+tint(c)+';border-left:5px solid '+c}
+ function style(e,solid=false){const c=color(e);return solid?'background:'+c+';color:'+text(c)+';border-color:'+c:'background:'+tint(c)+';border-left:5px solid '+c}
  function paint(el,e,solid=false){el.style.cssText+=';'+style(e,solid)}
  const api={valid,decode,encode,automatic,color,text,tint,style,paint};root.DSCalendarColors=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
