@@ -16,3 +16,6 @@
 
 /* Plain white status labels; event color remains the user's choice. */
 .status-pill,.status-pill.past,.status-pill.closed,.status-pill.closing{background:#fff!important;color:#334155!important;border:1px solid #e2e8f0!important;border-radius:5px!important;box-shadow:none!important}.event-bar.ended{opacity:1!important;filter:none!important}
+
+/* Compact schedule bars */
+.event-layer{gap:4px 3px;padding-bottom:10px}.event-bar{height:28px;min-height:28px;padding:3px 7px;border-radius:4px;font-weight:500;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:none}@media(max-width:720px){.event-bar{height:26px;min-height:26px;padding:3px 5px;line-height:18px}}
