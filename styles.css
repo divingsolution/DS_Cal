@@ -13,3 +13,6 @@
 .status-pill.closed{background:#f1f3f6;color:#7a8592}.status-pill.closing{background:#fff3e6;color:#b27638}
 .header{background:#fff;max-width:none;padding-left:max(30px,calc((100% - 1140px)/2));padding-right:max(30px,calc((100% - 1140px)/2))}@media(max-width:720px){.header{padding-left:18px;padding-right:18px}}
 @media(max-width:720px){.schedule-info .row-period,.schedule-info .row-location{display:block}.schedule-info .meta-divider{display:none}.schedule-info .row-location{margin-top:1px}}
+
+/* Plain white status labels; event color remains the user's choice. */
+.status-pill,.status-pill.past,.status-pill.closed,.status-pill.closing{background:#fff!important;color:#334155!important;border:1px solid #e2e8f0!important;border-radius:5px!important;box-shadow:none!important}.event-bar.ended{opacity:1!important;filter:none!important}
