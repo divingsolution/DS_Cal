@@ -122,6 +122,7 @@
               </div>
             </div>
 
+<div class="field event-color-field"><label for="eventColor">일정 색상</label><div class="event-color-row"><input id="eventColor" type="color" value="#0369a1" aria-label="일정 색상 선택"><input id="eventColorHex" type="text" value="#0369a1" pattern="#[0-9A-Fa-f]{6}" maxlength="7" aria-label="일정 색상 코드"><button id="autoEventColor" type="button" class="btn">자동 색상</button></div><div id="eventColorPresets" class="event-color-presets" aria-label="추천 색상"></div><p class="event-color-help">출장·고스트다이빙은 자동으로 구분합니다.<br>원하는 색을 고르면 해당 일정에 저장됩니다.</p><div id="eventColorPreview" class="event-color-preview">일정 색상 미리보기</div></div>
             <div class="field">
               <label for="location">장소</label>
               <input
@@ -179,6 +180,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
+  <script src="event-colors.js"></script>
   <script src="admin.js"></script>
 </body>
 </html>
