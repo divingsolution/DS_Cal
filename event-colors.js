@@ -5,7 +5,7 @@
  const valid=c=>typeof c==='string'&&/^#[0-9a-f]{6}$/i.test(c);
  function decode(e){const description=String(e.description||''),m=description.match(marker);return {...e,description:description.replace(marker,''),color:m?m[1].toLowerCase():null}}
  function encode(description,color){const plain=String(description||'').replace(marker,'');return valid(color)?plain+(plain?'\n':'')+'<!--ds-calendar-color:'+color.toLowerCase()+'-->':plain}
- function automatic(e){const t=String(e.title||'');if(/고스트|ghost/i.test(t)||e.category==='해양정화')return '#111111';if(/출장/.test(t))return '#b45309';return {'국내투어':'#0369a1','해외투어':'#4338ca','교육':'#0f766e','프로과정':'#7e22ce','강사시험':'#a16207','행사':'#be185d'}[e.category]||'#475569'}
+ function automatic(e){const t=String(e.title||'');if(/고스트|ghost/i.test(t)||e.category==='해양정화')return '#111111';if(/출장/.test(t))return '#b45309';return {'국내투어':'#0369a1','해외투어':'#4338ca','교육':'#0f766e','프로과정':'#173f58','강사시험':'#a16207','행사':'#be185d'}[e.category]||'#475569'}
  function color(e){return valid(e.color)?e.color:automatic(e)}
  function rgb(c){return [1,3,5].map(i=>parseInt(c.slice(i,i+2),16))}
  function text(c){const [r,g,b]=rgb(c).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4});return .2126*r+.7152*g+.0722*b>.179?'#102c37':'#ffffff'}
